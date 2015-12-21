@@ -7,14 +7,14 @@ object Main extends App{
   robot.setAutoDelay(50)
   robot.mouseMove(200,300)
 
-  def go(i:Int, history:List[Vector2]):Unit = i match {
+  def go(i:Int, history:Seq[Vector2]):Unit = i match {
     case i if i < 10000 =>{
       //robot.mousePress(leftclick)
       //robot.mouseRelease(leftclick)
       val x = MouseInfo.getPointerInfo.getLocation.x
       val y = MouseInfo.getPointerInfo.getLocation.y
       println((x,y))
-      go(i+1, Vector2(x,y) :: history)
+      go(i+1, Vector2(x,y) +: history)
     }
     case _ => ()
   }
