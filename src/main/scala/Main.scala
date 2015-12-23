@@ -7,7 +7,9 @@ object Main extends App{
   robot.setAutoDelay(50)
   robot.mouseMove(200,300)
 
-  def diff[A](as: Seq[A]): Seq[A] = as.zip(as.drop(1)).map((a1:A, a2:A) => a1 - a2)
+  def diff(vectors: Seq[Vector2]): Seq[Vector2] = vectors zip(vectors.drop(1)) map{
+    case (v1, v2) => v1 - v2
+  }
 
   def go(i:Int, history:Seq[Vector2]):Unit = i match {
     case i if i < 10000 =>{
@@ -15,7 +17,7 @@ object Main extends App{
       //robot.mouseRelease(leftclick)
       val x = MouseInfo.getPointerInfo.getLocation.x
       val y = MouseInfo.getPointerInfo.getLocation.y
-      println(diff(history))
+      println(diff(history).map(_.angle).foldLeft(0d)(_ + _))
       //println(history.foldLeft(0d)((acc, v) => (acc + v.angle)))
       go(i+1, Vector2(x,y) +: history.take(9))
     }
