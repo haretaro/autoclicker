@@ -17,11 +17,14 @@ object Main extends App{
       //robot.mouseRelease(leftclick)
       val x = MouseInfo.getPointerInfo.getLocation.x
       val y = MouseInfo.getPointerInfo.getLocation.y
-      println(diff(history).map(_.angle).foldLeft(0d)(_ + _))
-      //println(history.foldLeft(0d)((acc, v) => (acc + v.angle)))
-      go(i+1, Vector2(x,y) +: history.take(9))
+
+      diff(history).map(_.angle).foldLeft(0d)(_ + _) match{
+        case ang if ang != 0 => println(ang)
+        case _ => ()
+      }
+      go(i+1, Vector2(x,y) +: history.take(4))
     }
     case _ => ()
   }
-  go(0, List.fill(10)(Vector2(0,0)))
+  go(0, List.fill(5)(Vector2(0,0)))
 }
